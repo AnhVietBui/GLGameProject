@@ -36,7 +36,7 @@ void GSPlay::Init()
 	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
 
 	// button close
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_exit_2.tga");
 	std::shared_ptr<GameButton>  button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth - 50, 50);
 	button->SetSize(50, 50);
@@ -52,8 +52,8 @@ void GSPlay::Init()
 	m_score->Set2DPosition(Vector2(5, 25));
 
 	shader = ResourceManagers::GetInstance()->GetShader("Animation");
-	texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
-	std::shared_ptr<SpriteAnimation> obj = std::make_shared<SpriteAnimation>(model, shader, texture, 9, 6, 5, 0.1f);
+	texture = ResourceManagers::GetInstance()->GetTexture("animation.tga");
+	std::shared_ptr<SpriteAnimation> obj = std::make_shared<SpriteAnimation>(model, shader, texture, 8, 8, 3, 0.2f);
 	
 	obj->Set2DPosition(240, 400);
 	obj->SetSize(334, 223);

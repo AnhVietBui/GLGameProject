@@ -133,6 +133,13 @@
       <FileName>src\GameStates\GSPlay.h</FileName>
     </TypeIdentifier>
   </Class>
+	<Class Name="GSSound" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYgAAAAEAAAAgAAgAAQAQIEAAAAAAAAIAACgAgQAAA=</HashCode>
+      <FileName>src\GameStates\GSSound.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="Vertex" Collapsed="true">
     <Position X="7.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>

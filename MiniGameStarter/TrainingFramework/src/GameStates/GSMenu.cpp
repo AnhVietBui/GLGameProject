@@ -15,7 +15,7 @@ GSMenu::~GSMenu()
 void GSMenu::Init()
 {
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu_4.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu_6.tga");
 
 	// background
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
@@ -24,7 +24,7 @@ void GSMenu::Init()
 	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
 
 	// play button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_play.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_play_2.tga");
 	std::shared_ptr<GameButton> button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
 	button->SetSize(200, 200);
@@ -34,17 +34,17 @@ void GSMenu::Init()
 	m_listButton.push_back(button);
 
 	// setting button
-	/*texture = ResourceManagers::GetInstance()->GetTexture("btn_setting_2.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_setting_3.tga");
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth - 100, 50);
 	button->SetSize(50, 50);
 	button->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_SETTING);
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_SOUND);
 		});
-	m_listButton.push_back(button);*/
+	m_listButton.push_back(button);
 
 	// exit button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_exit_2.tga");
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth - 50, 50);
 	button->SetSize(50, 50);
@@ -57,9 +57,9 @@ void GSMenu::Init()
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Brightly Crush Shine.otf");
 	m_textGameName = std::make_shared< Text>(shader, font, "Stick to them", Vector4(1.0f, 0.5f, 0.0f, 1.0f), 3.0f);
-	m_textGameName->Set2DPosition(Vector2(60, 200));
+	m_textGameName->Set2DPosition(Vector2(250, 200));
 
-	std::string name = "Alarm01.wav";
+	std::string name = "BGM.mp3";
 	ResourceManagers::GetInstance()->PlaySound(name);
 }
 
