@@ -43,6 +43,17 @@ void GSMenu::Init()
 		});
 	m_listButton.push_back(button);
 
+	// infor button
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_settings_1.tga");
+	button = std::make_shared<GameButton>(model, shader, texture);
+	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2 + 300);
+	button->SetRotation(Vector3(0, 0, 0));
+	button->SetSize(100, 100);
+	button->SetOnClick([]() {
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+		});
+	m_listButton.push_back(button);
+
 	// exit button
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_exit_2.tga");
 	button = std::make_shared<GameButton>(model, shader, texture);
@@ -60,7 +71,11 @@ void GSMenu::Init()
 	m_textGameName->Set2DPosition(Vector2(250, 200));
 
 	std::string name = "BGM.mp3";
-	ResourceManagers::GetInstance()->PlaySound(name);
+
+	if (!GameStateMachine::GetInstance()->isMute())
+	{
+		ResourceManagers::GetInstance()->PlaySound(name, true);
+	}
 }
 
 void GSMenu::Exit()

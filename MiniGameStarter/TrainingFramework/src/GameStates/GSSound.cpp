@@ -1,89 +1,73 @@
 #include "GSSound.h"
 
-#include "Shader.h"
-#include "Texture.h"
-#include "Model.h"
-#include "Camera.h"
-#include "Font.h"
-#include "Sprite2D.h"
-#include "Sprite3D.h"
-#include "Text.h"
-#include "GameButton.h"
-#include "SpriteAnimation.h"
-
-
-
-GSSound::GSSound()
+GSSound::GSSound() : GameStateBase(StateType::STATE_SOUND),
+m_background(nullptr), m_listButton(std::list<std::shared_ptr<GameButton>>{}), m_textGameName(nullptr)
 {
 }
-
-
 GSSound::~GSSound()
 {
 }
-
-
 void GSSound::Init()
 {
-	m_Test = 1;
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
-
+	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu_6.tga");
 	// background
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 	m_background = std::make_shared<Sprite2D>(model, shader, texture);
-	m_background->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight / 2);
+	m_background->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
 	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
 
-	// button close
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
-	std::shared_ptr<GameButton>  button = std::make_shared<GameButton>(model, shader, texture);
+	// turn back button
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
+	std::shared_ptr<GameButton> button = std::make_shared<GameButton>(model, shader, texture);
+	button->SetName("btn_turnBack");
 	button->Set2DPosition(Globals::screenWidth - 50, 50);
 	button->SetSize(50, 50);
-	button->SetOnClick([this]() {
-		GameStateMachine::GetInstance()->PopState();
+	button->SetOnClick([]() {
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
+		});
+
+	m_listButton.push_back(button);
+
+	// volumn turn on button
+	// must set in last button because this button has setName
+	button = std::make_shared<GameButton>(model, shader, texture);
+	button->SetName("btn_volumn");
+	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
+	button->SetSize(200, 200);
+	button->SetOnClick([]() {
+		GameStateMachine::GetInstance()->changeMute();
+		if (GameStateMachine::GetInstance()->isMute()) {
+			ResourceManagers::GetInstance()->StopSound("BGM.mp3");
+		}
 		});
 	m_listButton.push_back(button);
 
-	// score
+	// game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Brightly Crush Shine.otf");
-	m_score = std::make_shared< Text>(shader, font, "score: 10", TextColor::RED, 1.0);
-	m_score->Set2DPosition(Vector2(5, 25));
+	m_textGameName = std::make_shared< Text>(shader, font, "Setting", Vector4(1.0f, 0.5f, 0.0f, 1.0f), 3.0f);
+	m_textGameName->Set2DPosition(Vector2(60, 200));
 
-	shader = ResourceManagers::GetInstance()->GetShader("Animation");
-	texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
-	std::shared_ptr<SpriteAnimation> obj = std::make_shared<SpriteAnimation>(model, shader, texture, 9, 6, 5, 0.1f);
-
-	obj->Set2DPosition(240, 400);
-	obj->SetSize(334, 223);
-	//obj->SetRotation(Vector3(0.0f, 3.14f, 0.0f));
-	m_listAnimation.push_back(obj);
-}
+	//sound
+};
 
 void GSSound::Exit()
 {
-	printf("%d", m_Test);
+	ResourceManagers::FreeInstance();
 }
-
-
 void GSSound::Pause()
 {
 }
-
 void GSSound::Resume()
 {
 }
-
-
 void GSSound::HandleEvents()
 {
 }
-
 void GSSound::HandleKeyEvents(int key, bool bIsPressed)
 {
 }
-
 void GSSound::HandleTouchEvents(int x, int y, bool bIsPressed)
 {
 	for (auto button : m_listButton)
@@ -94,34 +78,32 @@ void GSSound::HandleTouchEvents(int x, int y, bool bIsPressed)
 		}
 	}
 }
-
 void GSSound::HandleMouseMoveEvents(int x, int y)
 {
 }
-
 void GSSound::Update(float deltaTime)
 {
+	m_background->Update(deltaTime);
 	for (auto it : m_listButton)
-	{
-		it->Update(deltaTime);
-	}
-	for (auto it : m_listAnimation)
 	{
 		it->Update(deltaTime);
 	}
 }
-
 void GSSound::Draw()
 {
 	m_background->Draw();
-	m_score->Draw();
 	for (auto it : m_listButton)
 	{
+		if (it->GetName().compare("btn_volumn") == 0)
+		{
+			if (GameStateMachine::GetInstance()->isMute())
+			{
+				it->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_sfx_off.tga"));
+			}
+			else
+				it->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_sfx.tga"));
+		}
 		it->Draw();
 	}
-
-	for (auto it : m_listAnimation)
-	{
-		it->Draw();
-	}
+	m_textGameName->Draw();
 }
