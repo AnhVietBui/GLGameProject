@@ -27,7 +27,7 @@ void GSPlay::Init()
 {
 	m_Test = 1;
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("map1.tga");
 
 	// background
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
@@ -55,7 +55,7 @@ void GSPlay::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("animation.tga");
 	std::shared_ptr<SpriteAnimation> obj = std::make_shared<SpriteAnimation>(model, shader, texture, 8, 8, 3, 0.2f);
 	
-	obj->Set2DPosition(240, 400);
+	obj->Set2DPosition(100, 100);
 	obj->SetSize(334, 223);
 	//obj->SetRotation(Vector3(0.0f, 3.14f, 0.0f));
 	m_listAnimation.push_back(obj);

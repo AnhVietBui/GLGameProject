@@ -44,13 +44,13 @@ void GSMenu::Init()
 	m_listButton.push_back(button);
 
 	// infor button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_settings_1.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("info.tga");
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2 + 300);
 	button->SetRotation(Vector3(0, 0, 0));
 	button->SetSize(100, 100);
 	button->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_INFOR);
 		});
 	m_listButton.push_back(button);
 

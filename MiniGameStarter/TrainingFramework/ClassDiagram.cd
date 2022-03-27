@@ -140,6 +140,13 @@
       <FileName>src\GameStates\GSSound.h</FileName>
     </TypeIdentifier>
   </Class>
+	<Class Name="GSInfor" Collapsed="true">
+    <Position X="15" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYgAAAAEAAAAgAAgAAQAQIEAAAAAAAAIAACgAgQAAA=</HashCode>
+      <FileName>src\GameStates\GSInfor.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="Vertex" Collapsed="true">
     <Position X="7.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>

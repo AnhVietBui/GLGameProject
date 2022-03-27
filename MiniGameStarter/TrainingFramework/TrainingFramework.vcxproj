@@ -361,6 +361,7 @@
     <ClCompile Include="src\GameStates\GSMenu.cpp" />
     <ClCompile Include="src\GameStates\GSPlay.cpp" />
     <ClCompile Include="src\GameStates\GSSound.cpp" />
+    <ClCompile Include="src\GameStates\GSInfor.cpp" />
     <ClCompile Include="src\TrainingFramework.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +386,7 @@
     <ClInclude Include="src\GameStates\GSMenu.h" />
     <ClInclude Include="src\GameStates\GSPlay.h" />
     <ClInclude Include="src\GameStates\GSSound.h" />
+    <ClInclude Include="src\GameStates\GSInfor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

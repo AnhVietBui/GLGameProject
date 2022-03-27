@@ -6,6 +6,7 @@
 #include "GSIntro.h"
 #include "GSMenu.h"
 #include "GSSound.h"
+#include "GSInfor.h"
 
 #include "GameStatebase.h"
 
@@ -30,6 +31,9 @@ std::shared_ptr<GameStateBase> GameStateBase::CreateState(StateType stt)
 		break;
 	case StateType::STATE_SOUND:
 		gs = std::make_shared<GSSound>();
+		break;
+	case StateType::STATE_INFOR:
+		gs = std::make_shared<GSInfor>();
 		break;
 	default:
 		break;
